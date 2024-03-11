@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "643166993436",
+    "project_id": "viosatask",
+    "storage_bucket": "viosatask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643166993436:android:19bc8c065dd92ad425b3d9",
+        "android_client_info": {
+          "package_name": "com.example.viosa_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643166993436-k8ltn1f8vjoheu3gn1cn07mk106j694q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.viosa_task",
+            "certificate_hash": "94e62889bb6d26845bb760a8f705c595c8bfb201"
+          }
+        },
+        {
+          "client_id": "643166993436-go2qtv5t4j2fseas4eemvn5fqfd0aqq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQENnWEwb8FG0UmUm7e5KBn5h_QM9wzl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643166993436-go2qtv5t4j2fseas4eemvn5fqfd0aqq1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643166993436-ds6odj7ci71mn2otoa5tjlem95eeofhn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.viosaTask"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
