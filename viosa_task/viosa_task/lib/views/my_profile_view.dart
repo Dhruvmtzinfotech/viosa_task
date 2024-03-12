@@ -17,8 +17,6 @@ class _MyProfileState extends State<MyProfile> {
   void initState() {
     super.initState();
     profileCon.googleData();
-    // profileCon.userData();
-
   }
 
   @override
@@ -52,8 +50,7 @@ class _MyProfileState extends State<MyProfile> {
                         height: 100,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage(profileCon.photo.value),
+                          image: DecorationImage(image: NetworkImage(profileCon.photo.value),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -78,34 +75,11 @@ class _MyProfileState extends State<MyProfile> {
                           Text(profileCon.role.value,style: Theme.of(context).textTheme.displaySmall),
                           Text(profileCon.name.value,style:Theme.of(context).textTheme.displaySmall),
                           Text(profileCon.email.value,style:Theme.of(context).textTheme.displaySmall),
-                          Text(profileCon.userPhone.value,style:Theme.of(context).textTheme.displaySmall),
-                         // Text(profileCon.googleId.value,style: Theme.of(context).textTheme.displaySmall),
+                          // Text(profileCon.userPhone.value,style:Theme.of(context).textTheme.displaySmall),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: height * 5,),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width,
-                  //   decoration: BoxDecoration(
-                  //       color: Colors.grey.shade200
-                  //   ),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(10.0),
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         Text("Basic Details",style: TextStyle(
-                  //             fontSize: 20
-                  //         ),),
-                  //         SizedBox(height: height * 3),
-                  //         Text(profileCon.username.value),
-                  //         Text(profileCon.userEmail.value),
-                  //         Text(profileCon.userPhone.value),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             );

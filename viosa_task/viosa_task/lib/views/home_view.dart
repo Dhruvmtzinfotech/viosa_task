@@ -19,18 +19,28 @@ class _HomeViewState extends State<HomeView> {
   HomeController homeCon = Get.put(HomeController());
   CoursesModel courseList = CoursesModel();
 
-  @override
-  void initState() {
-    super.initState();
-    progres();
-    homeCon.api.myGetProgress();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   homeCon.api.header()!.whenComplete(() {
+  //     homeCon.api.getAllCourses().then((value) {
+  //       homeCon.experienceModel.value = value;
+  //     });
+  //   });
+  // }
 
+  @override
+   initState() {
+    super.initState();
+    progress();
+     Api().myGetProgress();
   }
 
-  Future<void> progres() async {
-    courseList = (await Api().getAllCourses()
-    )!;
-
+  Future<void> progress() async {
+    courseList = (await Api().getAllCourses())!;
+    setState(() {
+      Api().getAllCourses();
+    });
   }
 
   @override
@@ -103,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ),
-      appBar: AppBar(title: const Text("HomeView"),),
+      appBar: AppBar(title: Text("HomeView"),),
       body: SafeArea(
         child: Column(
           children: [
@@ -150,18 +160,17 @@ class _HomeViewState extends State<HomeView> {
                           ],
                         ),
                         Column(
-                          children: [
-                            const Text('Progress',style: TextStyle(
+                          children: [Text('Progress',style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.black,
                               fontSize: 15),
                             ),
-                            const SizedBox(height: 5),
+                             SizedBox(height: 5),
                             Row(
                               children: [
                                 Image.asset('assets/icons/progress.png'),
-                                const SizedBox(width: 5),
-                                Text(Api().percentage.toString(),style: const TextStyle(
+                                SizedBox(width: 5),
+                                Text(homeCon.percentage.toString(),style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black,
                                   fontSize: 13,
@@ -183,7 +192,7 @@ class _HomeViewState extends State<HomeView> {
                               children: [
                                 Image.asset('assets/icons/time.png'),
                                 const SizedBox(width: 5),
-                                Text(Api().watchTime.value.toString(),style: const TextStyle(
+                                Text(homeCon.watchTime.value.toString(),style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                     fontSize: 13,
@@ -200,7 +209,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             if(courseList.courses != null)
             Expanded(child:
-            ListView.builder(
+            (courseList.courses == null)?Center(child: CircularProgressIndicator(),):ListView.builder(
                 itemCount:courseList.courses!.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
@@ -229,8 +238,8 @@ class _HomeViewState extends State<HomeView> {
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Image.network(courseList.courses![index].thumbnail.toString()),height: 100,width: 100,
+                              ),height: 100,width: 100,
+                              child: Image.network(courseList.courses![index].thumbnail.toString()),
                             ),
                             Expanded(
                               child: Padding(

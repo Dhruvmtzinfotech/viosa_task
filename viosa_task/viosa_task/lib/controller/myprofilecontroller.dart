@@ -23,20 +23,4 @@ class MyProfileController extends GetxController{
     googleId.value = prefs.getString("googleid") ?? "";
   }
 
-
-
-  // var username = "".obs;
-  // var userEmail = "".obs;
-  // var userPhone = "".obs;
-  // var role = "".obs;
-  //
-  // userData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   username.value = prefs.getString("name") ?? "";
-  //   userEmail.value = prefs.getString("email") ?? "";
-  //   userPhone.value = prefs.getString("phoneNumber") ?? "";
-  //   role.value = prefs.getString("user") ?? "";
-  // }
-
-
 }

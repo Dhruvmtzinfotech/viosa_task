@@ -94,7 +94,7 @@ class _LoginViewState extends State<LoginView> {
                               loginCon.email.clear();
                               loginCon.password.clear();
                               Get.back();
-                              Get.toNamed(Routes.home);
+                              Get.offAllNamed(Routes.home);
                             });
                           }
                         }),

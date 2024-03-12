@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:viosa_task/controller/splashcontroller.dart';
 import 'package:viosa_task/routes/app_routes.dart';
 
 class SplashView extends StatefulWidget {
@@ -12,6 +13,7 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  SplashController splashCon = Get.put(SplashController());
 
 
   checkLogin() async
@@ -19,10 +21,12 @@ class _SplashViewState extends State<SplashView> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if(prefs.containsKey("isLogin"))
     {
+      // splashCon.isLoading = true;
       Get.offAllNamed(Routes.home);
     }
     else
     {
+      // splashCon.isLoading = false;
       Get.offAllNamed(Routes.login);
     }
   }
@@ -30,7 +34,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       checkLogin();
     });
   }

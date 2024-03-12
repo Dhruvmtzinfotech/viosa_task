@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:viosa_task/api/widget.dart';
+import 'package:viosa_task/controller/homecontroller.dart';
 import '../models/allcourses_model.dart';
 import '../models/myprogrese_model.dart';
 import '../utils/constants.dart';
@@ -27,6 +30,7 @@ class Api {
     return dio.options.headers["Authorization"] = "Bearer $token";
   }
 
+  HomeController homeCon = Get.put(HomeController());
 
 
   Future? getUserLogin({String? email, String? password}) async {
@@ -41,12 +45,13 @@ class Api {
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (response.data['user'] != null) {
 
-          SharedPreferences prefs = await SharedPreferences.getInstance();
           var name = response.data['user']['name'];
           var role = response.data['user']['role'];
           var mobile = response.data['user']['phoneNumber'];
           var token = response.data['token'];
 
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString("isLogin", "yes");
           prefs.setString('name', name);
           prefs.setString('email', email!);
           prefs.setString('phoneNumber',mobile);
@@ -60,7 +65,6 @@ class Api {
           ex.response!.data["message"] ?? "please try again later");
     }
   }
-
 
 
   // RxBool isLoading = false.obs;
@@ -81,12 +85,7 @@ class Api {
   }
 
 
-  double percentage = 0;
-  int? courses;
-  RxString watchTime = '00:00'.obs;
-  var progress;
-  List<ProgressModel> track = [];
-  Map myCourses = {};
+
 
   Future myGetProgress() async {
     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -102,33 +101,33 @@ class Api {
         ),
         data: jsonEncode({'userId': userId}),
       );
-      progress = jsonDecode(response.toString());
-      double completeChapter = (!progress.containsKey("result"))
+      homeCon.progress = jsonDecode(response.toString());
+      double completeChapter = (homeCon.progress.containsKey("result"))
           ? 0
-          : double.parse(progress["result"]["completedChapters"].toString());
-      double totalChp = (!progress.containsKey("result"))
+          : double.parse(homeCon.progress["result"]["completedChapters"].toString());
+      double totalChp = (homeCon.progress.containsKey("result"))
           ? 0
-          : double.parse(progress["result"]["totalChapters"].toString());
+          : double.parse( homeCon.progress["result"]["totalChapters"].toString());
 
       if (totalChp == 0.00) {
-        percentage = 0.00;
+        homeCon.percentage.value = 0.00;
       } else {
-        percentage = (completeChapter / totalChp) * 100;
+        homeCon.percentage.value = (completeChapter / totalChp) * 100;
       }
-      watchTime.value = intWatchTime(progress["result"]["totalWatchedTime"]);
-      track.add(
+      homeCon.watchTime.value = intWatchTime( homeCon.progress["result"]["totalWatchedTime"]);
+      homeCon.track.add(
         ProgressModel(
           title: "My Progress",
-          value: "${percentage.toStringAsFixed(2)}%",
+          value: "${ homeCon.percentage.toStringAsFixed(2)}%",
         ),
       );
-      track.add(
+      homeCon.track.add(
         ProgressModel(
           title: "My Watch Time",
-          value: watchTime.value,
+          value:  homeCon.watchTime.value,
         ),
       );
-      return progress;
+      return  homeCon.progress;
     } on DioException catch (error) {
       print("Error in API call: $error");
       return null;
