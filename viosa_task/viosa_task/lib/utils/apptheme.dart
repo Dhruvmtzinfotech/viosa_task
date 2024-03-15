@@ -27,7 +27,6 @@ class AppTheme
 
   static InputDecoration customDecoration(String hintText, IconData prefixIcon) {
     Color iconColor = Colors.grey;
-
     return InputDecoration(
       hintText: hintText,
       prefixIcon: GestureDetector(
